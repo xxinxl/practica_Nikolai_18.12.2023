@@ -33,48 +33,42 @@ console.log(countDuplicates(['kiwi', 'apple', 'kiwi', 'orange', 'kiwi', 'apple']
 
 // task4
 
-export function uniqueItems(arr) {
-    const uniqueSet = new Set(arr);
-
-    const uniqueArray = Array.from(uniqueSet);
-  
-    return uniqueArray;
-  }
-  
-  console.log(uniqueItems(['kiwi', 'apple', 'kiwi', 'orange', 'kiwi', 'apple']));
-  
-  console.log(uniqueItems(['num11', 'num12', 'num11', 'num11', 'num12', 'num11', 'num12', 12, 13]));
+export const uniqueItems = (arr) => {
+    let acc = [];
+    for (let i = 0; i < arr.length; i += 1) {
+        if (!acc.includes(arr[i])) {
+            acc.push(arr[i])
+        }
+    }
+    return acc;
+}
 
   //task5
 
-  export function getFavoritePizza(friends) {
+  export const getFavoritePizza = (friends) => {
     const pizzaCount = {};
-  
-    for (const friend of friends) {
-      for (const pizza of friend.pizzas) {
-        pizzaCount[pizza] = (pizzaCount[pizza] || 0) + 1;
-      }
-    }
+    
+    friends.forEach((friend) => {
+        friend.pizzas.forEach((pizza) => {
+            if (pizzaCount[pizza]) {
+                pizzaCount[pizza] += 1;
+            } else {
+                pizzaCount[pizza] = 1;
+            }
+        });
+    });
 
     let maxPizza = '';
     let maxCount = 0;
-  
-    for (const pizza in pizzaCount) {
-      if (pizzaCount[pizza] > maxCount) {
-        maxPizza = pizza;
-        maxCount = pizzaCount[pizza];
-      }
-    }
-  
-    return maxPizza;
-  }
 
-  const favoritePizza = getFavoritePizza([
-    { name: 'alex', pizzas: ['cheese', 'pepperoni'] },
-    { name: 'mike', pizzas: ['salami', 'cheese'] },
-    { name: 'stas', pizzas: ['pepperoni'] },
-    { name: 'anna', pizzas: ['cheese'] }
-  ]);
-  
-  console.log(favoritePizza); 
+    for (const pizza in pizzaCount) {
+        if (pizzaCount[pizza] > maxCount) {
+            maxCount = pizzaCount[pizza];
+            maxPizza = pizza;
+        }
+    }
+
+    return maxPizza;
+};
+
   
